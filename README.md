@@ -1,7 +1,3 @@
-Here’s a **polished and professional version** of your README — keeping your tone and structure, but improving flow, clarity, and formatting for readability:
-
----
-
 # NX-FanControl
 
 **NX-FanControl** is a Nintendo Switch homebrew utility that lets you fully customize your console’s internal fan curve.
@@ -41,7 +37,7 @@ make
 ## ⚙️ Common Issues & Fixes
 
 **Issue:** Fan always stays on
-**Fix:** Add the following configuration to your `Atmosphere/config` folder:
+**Fix:** Add the following configuration to your Atmosphère setup:
 [👉 system_settings.ini (GitHub link)](https://github.com/dominatorul/Easy-Setup/blob/main/data/Optimizer/EmuNAND/system_settings.ini)
 
 Place it in:
@@ -63,3 +59,4 @@ Use at your own risk — modifying fan behavior may affect system stability, per
 
 This project is licensed under the **MIT License**.
 See the [LICENSE](./LICENSE) file for details.
+
