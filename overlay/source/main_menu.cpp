@@ -206,7 +206,7 @@ void MainMenu::update()
 
         // Get fan speed
         float fanSpeed = GetFanSpeed();
-        if (fanSpeed >= 0) {
+        if (fanSpeed >= -1) {
             this->_fanSpeedLabel->setText("风扇转速: " + std::to_string((int)fanSpeed) + "%");
         } else {
             this->_fanSpeedLabel->setText("风扇转速: 未知");
