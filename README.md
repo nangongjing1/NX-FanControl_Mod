@@ -24,11 +24,8 @@ Before building, ensure you have the [**devkitPro toolchain**](https://devkitpro
 Clone the repository (including submodules), install dependencies, and build:
 
 ```bash
-git clone --recurse-submodules https://github.com/dominatorul/NX-FanControl.git
-cd NX-FanControl
-cd lib
-git clone https://github.com/DaveGamble/cJSON.git
-cd ..
+git clone --recurse-submodules https://github.com/nangongjing1/NX-FanControl_Mod.git
+cd NX-FanControl_Mod
 make
 ```
 
