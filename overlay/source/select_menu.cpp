@@ -9,7 +9,7 @@ SelectMenu::SelectMenu(int i, TemperaturePoint* fanCurveTable, bool* tableIsChan
 
     this->_saveBtn = new tsl::elm::ListItem("保存设置");
     this->_tempLabel = new tsl::elm::CategoryHeader(std::to_string((this->_fanCurveTable + this->_i)->temperature_c) + "℃", true);
-    this->_fanLabel = new tsl::elm::CategoryHeader(std::to_string((int)((this->_fanCurveTable + this->_i)->fanLevel_f * 100)) + "%", true);
+    this->_fanLabel = new tsl::elm::CategoryHeader(std::to_string((int)((this->_fanCurveTable + this->_i)->fanLevel_f * 100 + 0.5f)) + "%", true);
 }
 
 tsl::elm::Element* SelectMenu::createUI(){
@@ -34,10 +34,15 @@ tsl::elm::Element* SelectMenu::createUI(){
     stepFanL->setValueChangedListener([this](u8 value)
     {
         this->_fanLabel->setText(std::to_string(value * 5) + "%");
-        (this->_fanCurveTable + this->_i)->fanLevel_f = (float)(value * 5)/100 + 0.01;
+        float fanLevel = (float)(value * 5)/100;
+        // Clamp fan level between 0.0 and 1.0 to prevent values > 100%
+        if (fanLevel > 1.0f) fanLevel = 1.0f;
+        // Round to avoid floating point precision issues
+        fanLevel = (float)((int)(fanLevel * 100.0f + 0.5f)) / 100.0f;
+        (this->_fanCurveTable + this->_i)->fanLevel_f = fanLevel;
         this->_saveBtn->setText("保存设置");
     });
-    stepFanL->setProgress(((int)((this->_fanCurveTable + this->_i)->fanLevel_f * 100)) / 5);
+    stepFanL->setProgress(((int)((this->_fanCurveTable + this->_i)->fanLevel_f * 100 + 0.5f)) / 5);
     list->addItem(stepFanL);
 
     this->_saveBtn->setClickListener([this](uint64_t keys) 
