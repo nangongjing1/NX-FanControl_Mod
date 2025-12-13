@@ -68,7 +68,7 @@ namespace ult {
             content.assign(std::istreambuf_iterator<char>(file), std::istreambuf_iterator<char>());
             file.close();
         #endif
-    
+        
         return true;
     }
     
@@ -77,7 +77,7 @@ namespace ult {
         size_t pos = 0;
         size_t keyStart, keyEnd, colonPos, valueStart, valueEnd;
         std::string key, value;
-    
+        
         auto normalizeNewlines = [](std::string &s) {
             size_t n = 0;
             while ((n = s.find("\\n", n)) != std::string::npos) {
@@ -85,28 +85,28 @@ namespace ult {
                 n += 1;
             }
         };
-    
+        
         while ((pos = content.find('"', pos)) != std::string::npos) {
             keyStart = pos + 1;
             keyEnd = content.find('"', keyStart);
             if (keyEnd == std::string::npos) break;
-    
+            
             key = content.substr(keyStart, keyEnd - keyStart);
             colonPos = content.find(':', keyEnd);
             if (colonPos == std::string::npos) break;
-    
+            
             valueStart = content.find('"', colonPos);
             valueEnd = content.find('"', valueStart + 1);
             if (valueStart == std::string::npos || valueEnd == std::string::npos) break;
-    
+            
             value = content.substr(valueStart + 1, valueEnd - valueStart - 1);
-    
-            // 🔹 Convert escaped newlines (\\n) into real ones
+            
+            // Convert escaped newlines (\\n) into real ones
             normalizeNewlines(key);
             normalizeNewlines(value);
-    
+            
             result[key] = value;
-    
+            
             key.clear();
             value.clear();
             pos = valueEnd + 1; // Move to next pair
@@ -383,7 +383,7 @@ namespace ult {
         if (combo.find(' ') != std::string::npos) {
             return;  // Spaces found, return without modifying
         }
-    
+        
         std::string unicodeCombo;
         bool modified = false;
         size_t start = 0;
@@ -391,7 +391,7 @@ namespace ult {
         size_t end = 0;  // Moved outside the loop
         std::string token;  // Moved outside the loop
         auto it = buttonCharMap.end();  // Initialize iterator once outside the loop
-    
+        
         // Iterate through the combo string and split by '+'
         for (size_t i = 0; i <= length; ++i) {
             if (i == length || combo[i] == '+') {
@@ -399,25 +399,25 @@ namespace ult {
                 end = i;  // Reuse the end variable
                 while (start < end && std::isspace(combo[start])) start++;  // Trim leading spaces
                 while (end > start && std::isspace(combo[end - 1])) end--;  // Trim trailing spaces
-    
+                
                 token = combo.substr(start, end - start);  // Reuse the token variable
                 it = buttonCharMap.find(token);  // Reuse the iterator
-    
+                
                 if (it != buttonCharMap.end()) {
                     unicodeCombo += it->second;  // Append the mapped Unicode value
                     modified = true;
                 } else {
                     unicodeCombo += token;  // Append the original token if not found
                 }
-    
+                
                 if (i != length) {
                     unicodeCombo += "+";  // Only append '+' if we're not at the end
                 }
-    
+                
                 start = i + 1;  // Move to the next token
             }
         }
-    
+        
         // If a modification was made, update the original combo
         if (modified) {
             combo = unicodeCombo;
@@ -509,8 +509,8 @@ namespace ult {
     std::string VENDOR = "Vendor";
     std::string MODEL = "Model";
     std::string STORAGE = "Storage";
-    std::string NOTICE = "Notice";
-    std::string UTILIZES = "Utilizes";
+    //std::string NOTICE = "Notice";
+    //std::string UTILIZES = "Utilizes";
 
 
     std::string OVERLAY_MEMORY = "Overlay Memory";
@@ -572,6 +572,7 @@ namespace ult {
     std::string DELETE_OVERLAY = "Delete Overlay";
     std::string SELECTION_IS_EMPTY = "Selection is empty!";
     std::string FORCED_SUPPORT_WARNING = "Forcing support can be dangerous.";
+    
     std::string TASK_IS_COMPLETE = "Task is complete!";
     std::string TASK_HAS_FAILED = "Task has failed.";
 
@@ -585,6 +586,7 @@ namespace ult {
     std::string BOOT_ENTRY = "Boot Entry";
     #endif
 
+    std::string INCOMPATIBLE_WARNING = "Incompatible on AMS v1.10+";
     std::string SYSTEM_RAM = "System RAM";
     std::string FREE = "free";
 
@@ -734,8 +736,8 @@ namespace ult {
         VENDOR = "Vendor";
         MODEL = "Model";
         STORAGE = "Storage";
-        NOTICE = "Notice";
-        UTILIZES = "Utilizes";
+        //NOTICE = "Notice";
+        //UTILIZES = "Utilizes";
         SYSTEM_RAM = "System RAM";
         FREE = "free";
         
@@ -813,6 +815,7 @@ namespace ult {
         DELETE_OVERLAY = "Delete Overlay";
         SELECTION_IS_EMPTY = "Selection is empty!";
         FORCED_SUPPORT_WARNING = "Forcing support can be dangerous.";
+        INCOMPATIBLE_WARNING = "Incompatible on AMS v1.10+";
         TASK_IS_COMPLETE = "Task is complete!";
         TASK_HAS_FAILED = "Task has failed.";
 
@@ -961,8 +964,8 @@ namespace ult {
             {"VENDOR", &VENDOR},
             {"MODEL", &MODEL},
             {"STORAGE", &STORAGE},
-            {"NOTICE", &NOTICE},
-            {"UTILIZES", &UTILIZES},
+            //{"NOTICE", &NOTICE},
+            //{"UTILIZES", &UTILIZES},
 
             {"OVERLAY_MEMORY", &OVERLAY_MEMORY},
             {"NOT_ENOUGH_MEMORY", &NOT_ENOUGH_MEMORY},
@@ -1024,6 +1027,7 @@ namespace ult {
             {"DELETE_OVERLAY", &DELETE_OVERLAY},
             {"SELECTION_IS_EMPTY", &SELECTION_IS_EMPTY},
             {"FORCED_SUPPORT_WARNING", &FORCED_SUPPORT_WARNING},
+            {"INCOMPATIBLE_WARNING", &INCOMPATIBLE_WARNING},
             {"TASK_IS_COMPLETE", &TASK_IS_COMPLETE},
             {"TASK_HAS_FAILED", &TASK_HAS_FAILED},
 
@@ -1096,7 +1100,7 @@ namespace ult {
             {"DEC", &DEC}
             #endif
         };
-    
+        
         // Iterate over the map to update global variables
         for (auto& kv : configMap) {
             // 跳过对ON和OFF的语言更新
@@ -1166,9 +1170,9 @@ namespace ult {
             {"November", &NOVEMBER},
             {"December", &DECEMBER}
         };
-    
+        
         std::string timeStrCopy = timeStr; // Convert the char array to a string for processing
-    
+        
         // Apply day and month replacements
         size_t pos;
         for (const auto& mapping : mappings) {
@@ -1178,7 +1182,7 @@ namespace ult {
                 pos = timeStrCopy.find(mapping.first, pos + mapping.second->length());
             }
         }
-    
+        
         // Copy the modified string back to the character array
         strcpy(timeStr, timeStrCopy.c_str());
     }
@@ -1300,7 +1304,8 @@ namespace ult {
         {"selection_value_text_color", "FF7777"},
         {"selection_bg_color", blackColor},
         {"selection_bg_alpha", "11"},
-        {"trackbar_color", "555555"},
+        {"scrollbar_color", "555555"},
+        {"scrollbar_wall_color", "AAAAAA"},
         {"highlight_color_1", "2288CC"},
         {"highlight_color_2", "88FFFF"},
         {"highlight_color_3", "FFFF45"},
@@ -1340,23 +1345,6 @@ namespace ult {
     }
     
     
-    
-    //float calculateAmplitude(float x, float peakDurationFactor) {
-    //    //const float phasePeriod = 360.0f * peakDurationFactor;  // One full phase period
-    //
-    //    // Convert x from radians to degrees and calculate phase within the period
-    //    const int phase = static_cast<int>(x * RAD_TO_DEG) % static_cast<int>(360.0f * peakDurationFactor);
-    //
-    //    // Check if the phase is odd using bitwise operation
-    //    if (phase & 1) {
-    //        return 1.0f;  // Flat amplitude (maximum positive)
-    //    } else {
-    //        // Calculate the sinusoidal amplitude for the remaining period
-    //        return (APPROXIMATE_cos(x) + 1.0f) / 2.0f;  // Cosine function expects radians
-    //    }
-    //}
-            
-    
     std::atomic<bool> refreshWallpaperNow(false);
     std::atomic<bool> refreshWallpaper(false);
     std::vector<u8> wallpaperData; 
@@ -1366,127 +1354,6 @@ namespace ult {
     std::condition_variable cv;
     
     
-    // Function to load the RGBA file into memory and modify wallpaperData directly
-    //void loadWallpaperFile(const std::string& filePath, s32 width, s32 height) {
-    //    const size_t originalDataSize = width * height * 4; // Original size in bytes (4 bytes per pixel)
-    //    const size_t compressedDataSize = originalDataSize / 2; // RGBA4444 uses half the space
-    //    
-    //    wallpaperData.resize(compressedDataSize);
-    //    
-    //    if (!isFileOrDirectory(filePath)) {
-    //        wallpaperData.clear();
-    //        return;
-    //    }
-    //    
-    //    #if !USING_FSTREAM_DIRECTIVE
-    //        FILE* file = fopen(filePath.c_str(), "rb");
-    //        if (!file) {
-    //            wallpaperData.clear();
-    //            return;
-    //        }
-    //        
-    //        std::vector<uint8_t> buffer;
-    //        //if (reducedMemory) {
-    //        //    // Reuse wallpaperData to avoid double allocation
-    //        //    buffer.swap(wallpaperData);
-    //        //    buffer.resize(originalDataSize);
-    //        //} else {
-    //        buffer.resize(originalDataSize);
-    //        //}
-    //        
-    //        const size_t bytesRead = fread(buffer.data(), 1, originalDataSize, file);
-    //        fclose(file);
-    //        
-    //        if (bytesRead != originalDataSize) {
-    //            wallpaperData.clear();
-    //            return;
-    //        }
-    //        
-    //    #else
-    //        std::ifstream file(filePath, std::ios::binary);
-    //        if (!file) {
-    //            wallpaperData.clear();
-    //            return;
-    //        }
-    //        
-    //        std::vector<uint8_t> buffer;
-    //        //if (reducedMemory) {
-    //        //    buffer.swap(wallpaperData);
-    //        //    buffer.resize(originalDataSize);
-    //        //} else {
-    //        buffer.resize(originalDataSize);
-    //        //}
-    //        
-    //        file.read(reinterpret_cast<char*>(buffer.data()), originalDataSize);
-    //        if (!file) {
-    //            wallpaperData.clear();
-    //            return;
-    //        }
-    //    #endif
-    //    
-    //    // Compress RGBA8888 to RGBA4444
-    //    //if (reducedMemory) {
-    //    //    // In-place compression to save memory
-    //    //    size_t writeIndex = 0;
-    //    //    for (size_t i = 0; i < originalDataSize; i += 8, writeIndex += 4) {
-    //    //        uint8_t r1 = buffer[i] >> 4;
-    //    //        uint8_t g1 = buffer[i + 1] >> 4;
-    //    //        uint8_t b1 = buffer[i + 2] >> 4;
-    //    //        uint8_t a1 = buffer[i + 3] >> 4;
-    //    //
-    //    //        uint8_t r2 = buffer[i + 4] >> 4;
-    //    //        uint8_t g2 = buffer[i + 5] >> 4;
-    //    //        uint8_t b2 = buffer[i + 6] >> 4;
-    //    //        uint8_t a2 = buffer[i + 7] >> 4;
-    //    //
-    //    //        buffer[writeIndex]     = (r1 << 4) | g1;
-    //    //        buffer[writeIndex + 1] = (b1 << 4) | a1;
-    //    //        buffer[writeIndex + 2] = (r2 << 4) | g2;
-    //    //        buffer[writeIndex + 3] = (b2 << 4) | a2;
-    //    //    }
-    //    //    buffer.resize(compressedDataSize);
-    //    //    wallpaperData.swap(buffer);
-    //    //} else {
-    //    uint8_t* input = buffer.data();
-    //    uint8_t* output = wallpaperData.data();
-    //    //uint8_t r1, g1, b1, a1;
-    //    //uint8_t r2, g2, b2, a2;
-    //    
-    //    //for (size_t i = 0, j = 0; i < originalDataSize; i += 8, j += 4) {
-    //    //    // Read 2 RGBA pixels (8 bytes)
-    //    //    const uint8_t r1 = input[i] >> 4;
-    //    //    const uint8_t g1 = input[i + 1] >> 4;
-    //    //    const uint8_t b1 = input[i + 2] >> 4;
-    //    //    const uint8_t a1 = input[i + 3] >> 4;
-    //    //    
-    //    //    const uint8_t r2 = input[i + 4] >> 4;
-    //    //    const uint8_t g2 = input[i + 5] >> 4;
-    //    //    const uint8_t b2 = input[i + 6] >> 4;
-    //    //    const uint8_t a2 = input[i + 7] >> 4;
-    //    //    
-    //    //    // Pack them into 4 bytes (2 bytes per pixel)
-    //    //    output[j]     = (r1 << 4) | g1;
-    //    //    output[j + 1] = (b1 << 4) | a1;
-    //    //    output[j + 2] = (r2 << 4) | g2;
-    //    //    output[j + 3] = (b2 << 4) | a2;
-    //    //}
-    //    
-    //    for (size_t i = 0, j = 0; i < originalDataSize; i += 16, j += 8) {
-    //        output[j]     = ((input[i]     >> 4) << 4) | (input[i + 1] >> 4);
-    //        output[j + 1] = ((input[i + 2] >> 4) << 4) | (input[i + 3] >> 4);
-    //        output[j + 2] = ((input[i + 4] >> 4) << 4) | (input[i + 5] >> 4);
-    //        output[j + 3] = ((input[i + 6] >> 4) << 4) | (input[i + 7] >> 4);
-    //        output[j + 4] = ((input[i + 8] >> 4) << 4) | (input[i + 9] >> 4);
-    //        output[j + 5] = ((input[i + 10] >> 4) << 4) | (input[i + 11] >> 4);
-    //        output[j + 6] = ((input[i + 12] >> 4) << 4) | (input[i + 13] >> 4);
-    //        output[j + 7] = ((input[i + 14] >> 4) << 4) | (input[i + 15] >> 4);
-    //    }
-    //    //}
-    //}
-
-
-    
-        
     void loadWallpaperFile(const std::string& filePath, s32 width, s32 height) {
         const size_t originalDataSize = width * height * 4;
         const size_t compressedDataSize = originalDataSize / 2;
@@ -1561,21 +1428,21 @@ namespace ult {
     void reloadWallpaper() {
         // Signal that wallpaper is being refreshed
         refreshWallpaper.store(true, std::memory_order_release);
-    
+        
         // Lock the mutex for condition waiting
         std::unique_lock<std::mutex> lock(wallpaperMutex);
-    
+        
         // Wait for inPlot to be false before reloading the wallpaper
         cv.wait(lock, [] { return !inPlot.load(std::memory_order_acquire); });
-    
+        
         // Clear the current wallpaper data
         wallpaperData.clear();
-    
+        
         // Reload the wallpaper file
         if (isFileOrDirectory(WALLPAPER_PATH)) {
             loadWallpaperFile(WALLPAPER_PATH);
         }
-    
+        
         // Signal that wallpaper has finished refreshing
         refreshWallpaper.store(false, std::memory_order_release);
         
@@ -1653,12 +1520,12 @@ namespace ult {
             PsmChargerType charger = PsmChargerType_Unconnected;
             Result rc = psmGetBatteryChargePercentage(_batteryCharge);
             bool hwReadsSucceeded = R_SUCCEEDED(rc);
-    
+            
             if (hwReadsSucceeded) {
                 rc = psmGetChargerType(&charger);
                 hwReadsSucceeded &= R_SUCCEEDED(rc);
                 *_isCharging = (charger != PsmChargerType_Unconnected);
-    
+                
                 if (hwReadsSucceeded) {
                     // Update cache
                     powerCacheCharge = *_batteryCharge;
@@ -1668,18 +1535,18 @@ namespace ult {
                     return true;
                 }
             }
-    
+            
             // Use cached values if the hardware read fails
             if (powerCacheInitialized) {
                 *_batteryCharge = powerCacheCharge;
                 *_isCharging = powerCacheIsCharging;
                 return hwReadsSucceeded; // Return false if hardware read failed but cache is valid
             }
-    
+            
             // Return false if cache is not initialized and hardware read failed
             return false;
         }
-    
+        
         // Use cached values if not enough time has passed
         *_batteryCharge = powerCacheCharge;
         *_isCharging = powerCacheIsCharging;
@@ -1690,19 +1557,19 @@ namespace ult {
     void powerInit(void) {
         uint32_t charge = 0;
         bool charging = false;
-    
+        
         powerCacheInitialized = false;
         powerCacheCharge = 0;
         powerCacheIsCharging = false;
-    
+        
         if (!powerInitialized) {
             Result rc = psmInitialize();
             if (R_SUCCEEDED(rc)) {
                 rc = psmBindStateChangeEvent(&powerSession, 1, 1, 1);
-    
+                
                 if (R_FAILED(rc))
                     psmExit();
-    
+                
                 if (R_SUCCEEDED(rc)) {
                     powerInitialized = true;
                     ult::powerGetDetails(&charge, &charging);
@@ -1742,15 +1609,15 @@ namespace ult {
             u8 receive;
             u8 receiveLength;
         };
-    
+        
         I2cSession _session;
-    
+        
         Result res = i2cOpenSession(&_session, dev);
         if (res)
             return res;
-    
+        
         u16 val;
-    
+        
         struct readReg readRegister = {
             .send = 0 | (I2cTransactionOption_Start << 6),
             .sendLength = sizeof(reg),
@@ -1758,13 +1625,13 @@ namespace ult {
             .receive = 1 | (I2cTransactionOption_All << 6),
             .receiveLength = sizeof(val),
         };
-    
+        
         res = i2csessionExecuteCommandList(&_session, &val, sizeof(val), &readRegister, sizeof(readRegister));
         if (res) {
             i2csessionClose(&_session);
             return res;
         }
-    
+        
         *out = val;
         i2csessionClose(&_session);
         return 0;
@@ -1777,31 +1644,31 @@ namespace ult {
         u8 val;
         s32 integerPart = 0;
         float fractionalPart = 0.0f;  // Change this to a float to retain fractional precision
-    
+        
         // Read the integer part of the temperature
         Result res = I2cReadRegHandler(integerReg, I2cDevice_Tmp451, &rawValue);
         if (R_FAILED(res)) {
             return res;  // Error during I2C read
         }
-    
+        
         val = (u8)rawValue;  // Cast the value to an 8-bit unsigned integer
         integerPart = val;    // Integer part of temperature in Celsius
-    
+        
         if (integerOnly)
         {
             *temperature = static_cast<float>(integerPart);  // Ensure it's treated as a float
             return 0;  // Return only integer part if requested
         }
-    
+        
         // Read the fractional part of the temperature
         res = I2cReadRegHandler(fractionalReg, I2cDevice_Tmp451, &rawValue);
         if (R_FAILED(res)) {
             return res;  // Error during I2C read
         }
-    
+        
         val = (u8)rawValue;  // Cast the value to an 8-bit unsigned integer
         fractionalPart = static_cast<float>(val >> 4) * 0.0625f;  // Convert upper 4 bits into fractional part
-    
+        
         // Combine integer and fractional parts
         *temperature = static_cast<float>(integerPart) + fractionalPart;
         
@@ -1820,8 +1687,8 @@ namespace ult {
     
     
     // Time implementation
-    CONSTEXPR_STRING std::string DEFAULT_DT_FORMAT = "'%a %T'";
-    std::string datetimeFormat = "%a %T";
+    CONSTEXPR_STRING std::string DEFAULT_DT_FORMAT = "%a %T";
+    std::string datetimeFormat = DEFAULT_DT_FORMAT;
     
     
     // Widget settings
@@ -1858,7 +1725,7 @@ namespace ult {
     
 
 
-        
+    
     // Helper function to convert MB to bytes
     u64 mbToBytes(u32 mb) {
         return static_cast<u64>(mb) * 0x100000;

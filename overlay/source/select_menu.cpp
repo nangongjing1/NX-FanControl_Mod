@@ -7,14 +7,14 @@ SelectMenu::SelectMenu(int i, TemperaturePoint* fanCurveTable, bool* tableIsChan
     this->_fanCurveTable = fanCurveTable;
     this->_tableIsChanged = tableIsChanged;
 
-    this->_saveBtn = new tsl::elm::ListItem("保存");
+    this->_saveBtn = new tsl::elm::ListItem("保存设置");
     this->_tempLabel = new tsl::elm::CategoryHeader(std::to_string((this->_fanCurveTable + this->_i)->temperature_c) + "℃", true);
     this->_fanLabel = new tsl::elm::CategoryHeader(std::to_string((int)((this->_fanCurveTable + this->_i)->fanLevel_f * 100)) + "%", true);
 }
 
 tsl::elm::Element* SelectMenu::createUI(){
 
-    auto frame = new tsl::elm::OverlayFrame("风扇调节", "南宫镜 汉化");
+    auto frame = new tsl::elm::OverlayFrame("风扇调节", std::string("南宫镜") + APP_VERSION);
 
     auto list = new tsl::elm::List();
 
@@ -24,7 +24,7 @@ tsl::elm::Element* SelectMenu::createUI(){
     {
         this->_tempLabel->setText(std::to_string(value * 5) + "℃");
         (this->_fanCurveTable + this->_i)->temperature_c = value * 5;
-        this->_saveBtn->setText("保存");
+        this->_saveBtn->setText("保存设置");
     });
     stepTemp->setProgress(((this->_fanCurveTable + this->_i)->temperature_c) / 5);
     list->addItem(stepTemp);
@@ -34,8 +34,8 @@ tsl::elm::Element* SelectMenu::createUI(){
     stepFanL->setValueChangedListener([this](u8 value)
     {
         this->_fanLabel->setText(std::to_string(value * 5) + "%");
-        (this->_fanCurveTable + this->_i)->fanLevel_f = (float)(value * 5)/100;
-        this->_saveBtn->setText("保存");
+        (this->_fanCurveTable + this->_i)->fanLevel_f = (float)(value * 5)/100 + 0.01;
+        this->_saveBtn->setText("保存设置");
     });
     stepFanL->setProgress(((int)((this->_fanCurveTable + this->_i)->fanLevel_f * 100)) / 5);
     list->addItem(stepFanL);
@@ -58,7 +58,7 @@ tsl::elm::Element* SelectMenu::createUI(){
                 pmshellLaunchProgram(0, &programLocation, &pid);
             }
                 
-            this->_saveBtn->setText("已保存");
+            this->_saveBtn->setText("保存成功");
             *this->_tableIsChanged = true;
 		    return true;
 		}

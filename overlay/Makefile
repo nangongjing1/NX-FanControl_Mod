@@ -10,7 +10,7 @@ TOPDIR ?= $(CURDIR)
 include $(DEVKITPRO)/libnx/switch_rules
 
 APP_TITLE       :=  NX-FanControl
-APP_VERSION     :=  1.0.6+
+APP_VERSION     :=  1.0.7+
 APP_AUTHOR		:=  GSNG
 
 TARGET          :=  $(APP_TITLE)
