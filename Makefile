@@ -44,10 +44,10 @@ out:
 	@mkdir -p $(OUT_DIR)/atmosphere/contents/00FF0000B378D640/flags
 	@cp ./sysmodule/sysmodule.nsp $(OUT_DIR)/atmosphere/contents/00FF0000B378D640/exefs.nsp
 	@cp ./sysmodule/toolbox.json $(OUT_DIR)/atmosphere/contents/00FF0000B378D640/
-	@touch $(OUT_DIR)/atmosphere/contents/00FF0000B378D640/flags/boot2.flag
+#	@touch $(OUT_DIR)/atmosphere/contents/00FF0000B378D640/flags/boot2.flag
 	
 	@echo ""
-	@echo "Build complete! Files are in '$(OUT_DIR)' directory"
+	@echo "Build complete! Check out '$(OUT_DIR)' directory"
 
 # Manual clean command (use 'make clean' to only clean without building)
 clean:

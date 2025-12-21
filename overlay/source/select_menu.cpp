@@ -14,7 +14,7 @@ SelectMenu::SelectMenu(int i, TemperaturePoint* fanCurveTable, bool* tableIsChan
 
 tsl::elm::Element* SelectMenu::createUI(){
 
-    auto frame = new tsl::elm::OverlayFrame("风扇调节", std::string("南宫镜") + APP_VERSION);
+    auto frame = new tsl::elm::OverlayFrame("风扇调节", std::string("南宫镜 ") + APP_VERSION);
 
     auto list = new tsl::elm::List();
 

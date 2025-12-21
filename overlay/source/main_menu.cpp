@@ -42,7 +42,7 @@ tsl::elm::Element* MainMenu::createUI()
 {
     this->_tableIsChanged = false;
 
-    auto frame = new tsl::elm::OverlayFrame("风扇调节", std::string("南宫镜") + APP_VERSION);
+    auto frame = new tsl::elm::OverlayFrame("风扇调节", std::string("南宫镜 ") + APP_VERSION);
 
     auto list = new tsl::elm::List();
 
