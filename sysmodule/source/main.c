@@ -1,7 +1,7 @@
 #include "fancontrol.h"
 
-// Size of the inner heap (adjust as necessary). 192KB now.
-#define INNER_HEAP_SIZE 0x30000
+// Size of the inner heap (adjust as necessary). 64KB now.
+#define INNER_HEAP_SIZE 0x10000
 
 #ifdef __cplusplus
 extern "C" {
