@@ -10,7 +10,7 @@ private:
 
     tsl::elm::ToggleListItem* _enabledBtn;
     
-    // Real-time monitoring labels
+    // 实时监控部分
     tsl::elm::ListItem* _socTempLabel;
     tsl::elm::ListItem* _fanSpeedLabel;
 

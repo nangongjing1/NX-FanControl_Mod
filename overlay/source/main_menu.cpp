@@ -5,10 +5,10 @@ MainMenu::MainMenu()
 {
     ReadConfigFile(&this->_fanCurveTable);
 
-    // Initialize sensors
+    // 传感器初始化
     InitializeSensors();
 
-    // Initialize temperature and fan speed labels
+    // 初始化温度和风扇速度标签
     this->_socTempLabel = new tsl::elm::ListItem("核心温度: --℃");
     this->_fanSpeedLabel = new tsl::elm::ListItem("风扇转速: --%");
 
@@ -69,7 +69,7 @@ tsl::elm::Element* MainMenu::createUI()
     });
     list->addItem(this->_enabledBtn);
 
-    // Add real-time monitoring section
+    // 显示实时监控数据
     list->addItem(new tsl::elm::CategoryHeader("当前状态", true));
     list->addItem(this->_socTempLabel);
     list->addItem(this->_fanSpeedLabel);
@@ -194,9 +194,9 @@ void MainMenu::update()
     static u64 counter = 0;
     counter++;
     
-    // Update readings every 6-12 frames (0.1-0.2s at 60 FPS)
+    // 每 6-12 帧更新读数
     if (counter % 6 == 0) {
-        // Get SOC temperature
+        // 获取 SOC 温度
         float socTemp = GetSOCTemperature();
         if (socTemp >= 0) {
             this->_socTempLabel->setText("核心温度: " + std::to_string((int)socTemp) + "℃");
@@ -204,7 +204,7 @@ void MainMenu::update()
             this->_socTempLabel->setText("核心温度: 未知");
         }
 
-        // Get fan speed
+        // 获取风扇转速
         float fanSpeed = GetFanSpeed();
         if (fanSpeed >= -1) {
             this->_fanSpeedLabel->setText("风扇转速: " + std::to_string((int)fanSpeed) + "%");

@@ -1,31 +1,31 @@
 #include "fancontrol.h"
 
-// Size of the inner heap (adjust as necessary). 50KB now.
+// 内部堆大小，按需调整, 50KB.
 #define INNER_HEAP_SIZE 0xC800
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-// Sysmodules should not use applet*.
+// Sysmodules 不应该使用 Applet.
 u32 __nx_applet_type = AppletType_None;
 
-// Sysmodules will normally only want to use one FS session.
+// Sysmodules 通常只需要使用一个 FS 会话.
 u32 __nx_fs_num_sessions = 1;
 
-// Newlib heap configuration function (makes malloc/free work).
+// Newlib 堆配置函数 (使 malloc/free 工作).
 void __libnx_initheap(void)
 {
     static u8 inner_heap[INNER_HEAP_SIZE];
     extern void* fake_heap_start;
     extern void* fake_heap_end;
 
-    // Configure the newlib heap.
+    // 配置 Newlib 堆.
     fake_heap_start = inner_heap;
     fake_heap_end   = inner_heap + sizeof(inner_heap);
 }
 
-// Service initialization.
+// 初始化.
 void __appInit(void)
 {
     Result rc;
@@ -62,7 +62,7 @@ void __appInit(void)
     smExit();
 }
 
-// Service deinitialization.
+// 安全退出.
 void __appExit(void)
 {
     CloseFanControllerThread();
@@ -76,7 +76,7 @@ void __appExit(void)
 }
 #endif
 
-// Main program entrypoint
+// 主入口点.
 int main(int argc, char* argv[])
 {
     TemperaturePoint *table;

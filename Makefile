@@ -47,7 +47,7 @@ out:
 #	@touch $(OUT_DIR)/atmosphere/contents/00FF0000B378D640/flags/boot2.flag
 	
 	@echo ""
-	@echo "Build complete! Check out '$(OUT_DIR)' directory"
+	@echo "Build complete! Check '$(OUT_DIR)' directory"
 
 # Manual clean command (use 'make clean' to only clean without building)
 clean:

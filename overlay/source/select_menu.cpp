@@ -35,9 +35,9 @@ tsl::elm::Element* SelectMenu::createUI(){
     {
         this->_fanLabel->setText(std::to_string(value * 5) + "%");
         float fanLevel = (float)(value * 5)/100;
-        // Clamp fan level between 0.0 and 1.0 to prevent values > 100%
+        // 限制风扇电平在 0.0 和 1.0 之间，防止转速 > 100%
         if (fanLevel > 1.0f) fanLevel = 1.0f;
-        // Round to avoid floating point precision issues
+        // 四舍五入以避免浮点精度问题
         fanLevel = (float)((int)(fanLevel * 100.0f + 0.5f)) / 100.0f;
         (this->_fanCurveTable + this->_i)->fanLevel_f = fanLevel;
         this->_saveBtn->setText("保存设置");
