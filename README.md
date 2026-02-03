@@ -57,4 +57,4 @@ Use at your own risk — modifying fan behavior may affect system stability, per
 This project is licensed under the **MIT License**.
 See the [LICENSE](./LICENSE) file for details.
 
-The [libultrahand](https://github.com/ppkantorski/libultrahand) is licensed and distributed under [GPLv2](https://github.com/ppkantorski/libultrahand/blob/main/LICENSE) with a [custom library](overlay\lib\libultrahand\libultra) utilizing [CC-BY-4.0](https://github.com/ppkantorski/libultrahand/blob/main/SUB_LICENSE).
+The [libultrahand](https://github.com/ppkantorski/libultrahand) is licensed and distributed under [GPLv2](https://github.com/ppkantorski/libultrahand/blob/main/LICENSE) with a [custom library](./overlay/lib/libultrahand/libultra) utilizing [CC-BY-4.0](https://github.com/ppkantorski/libultrahand/blob/main/SUB_LICENSE).
