@@ -47,7 +47,7 @@ tsl::elm::Element* SelectMenu::createUI(){
 
     this->_saveBtn->setClickListener([this](uint64_t keys) 
     {
-	    if (keys & HidNpadButton_A) 
+	    if (keys & KEY_A) 
         {
 		    WriteConfigFile(this->_fanCurveTable);
 

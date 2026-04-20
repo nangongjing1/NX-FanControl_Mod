@@ -37,8 +37,15 @@ CFLAGS := -g -Wall -Os -ffunction-sections -fdata-sections -flto\
             -ffast-math -fomit-frame-pointer \
             -fuse-linker-plugin -finline-small-functions \
             -fno-strict-aliasing -frename-registers -falign-functions=16 \
-            -fno-unroll-loops -fno-tree-loop-optimize \
-            $(ARCH) $(DEFINES)  -DVERSION_STRING=\"$(subst $(SPACE),\$(SPACE),${APP_VERSION})\"
+			$(ARCH) $(DEFINES)  -DVERSION_STRING=\"$(subst $(SPACE),\$(SPACE),${APP_VERSION})\"
+
+# Exception wrap utilization (for smaller compilation size)
+CFLAGS += -DUSE_EXCEPTION_WRAP=1
+
+# Requires USE_EXCEPTION_WRAP and inclusion of exception_wrap.hpp in main
+LDFLAGS += -Wl,-wrap,__cxa_throw \
+           -Wl,-wrap,_Unwind_Resume \
+           -Wl,-wrap,__gxx_personality_v0
 
 CFLAGS  +=  $(INCLUDE) -D__SWITCH__ -D__OVERLAY__ -I$(PORTLIBS)/include/freetype2 -Wno-deprecated-declarations 
 CFLAGS  +=  -DAPP_VERSION=\"$(APP_VERSION)\" -DAPP_TITLE=\"$(APP_TITLE)\"
@@ -49,7 +56,7 @@ CFLAGS  +=  -DNO_FSTREAM_DIRECTIVE=1
 CXXFLAGS    := $(CFLAGS) -fno-exceptions -std=c++26
 
 ASFLAGS :=  -g $(ARCH)
-LDFLAGS =   -specs=$(DEVKITPRO)/libnx/switch.specs -g $(ARCH) -Wl,-Map,$(notdir $*.map) -Wl,--allow-multiple-definition
+LDFLAGS +=   -specs=$(DEVKITPRO)/libnx/switch.specs -g $(ARCH) -Wl,-Map,$(notdir $*.map) -Wl,--allow-multiple-definition
 
 # Library linking
 LIBS    := -lcurl -lz -lzzip -lmbedtls -lmbedx509 -lmbedcrypto -ljansson -lnx ../../lib/libfancontrol/lib/libfancontrol.a -lstdc++ -lm

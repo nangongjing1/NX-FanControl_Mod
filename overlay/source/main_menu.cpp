@@ -77,7 +77,7 @@ tsl::elm::Element* MainMenu::createUI()
     list->addItem(new tsl::elm::CategoryHeader("风扇曲线", true));
     this->_p0Label->setClickListener([this](uint64_t keys)
     {
-	    if (keys & HidNpadButton_A) 
+	    if (keys & KEY_A) 
         {
 			tsl::changeTo<SelectMenu>(0, this->_fanCurveTable, &this->_tableIsChanged);
 			return true;
@@ -88,7 +88,7 @@ tsl::elm::Element* MainMenu::createUI()
 
     this->_p1Label->setClickListener([this](uint64_t keys)
     {
-	    if (keys & HidNpadButton_A) 
+	    if (keys & KEY_A) 
         {
 			tsl::changeTo<SelectMenu>(1, this->_fanCurveTable, &this->_tableIsChanged);
 			return true;
@@ -99,7 +99,7 @@ tsl::elm::Element* MainMenu::createUI()
 
     this->_p2Label->setClickListener([this](uint64_t keys)
     {
-	    if (keys & HidNpadButton_A) 
+	    if (keys & KEY_A) 
         {
 			tsl::changeTo<SelectMenu>(2, this->_fanCurveTable, &this->_tableIsChanged);
 			return true;
@@ -110,7 +110,7 @@ tsl::elm::Element* MainMenu::createUI()
 
     this->_p3Label->setClickListener([this](uint64_t keys)
     {
-	    if (keys & HidNpadButton_A) 
+	    if (keys & KEY_A) 
         {
 		    tsl::changeTo<SelectMenu>(3, this->_fanCurveTable, &this->_tableIsChanged);
 			return true;
@@ -121,7 +121,7 @@ tsl::elm::Element* MainMenu::createUI()
 
     this->_p4Label->setClickListener([this](uint64_t keys)
     {
-	    if (keys & HidNpadButton_A) 
+	    if (keys & KEY_A) 
         {
 				tsl::changeTo<SelectMenu>(4, this->_fanCurveTable, &this->_tableIsChanged);
 				return true;
@@ -131,7 +131,7 @@ tsl::elm::Element* MainMenu::createUI()
     list->addItem(this->_p4Label);
         this->_p5Label->setClickListener([this](uint64_t keys)
     {
-        if (keys & HidNpadButton_A) 
+        if (keys & KEY_A) 
         {
             tsl::changeTo<SelectMenu>(5, this->_fanCurveTable, &this->_tableIsChanged);
             return true;
@@ -142,7 +142,7 @@ tsl::elm::Element* MainMenu::createUI()
 
     this->_p6Label->setClickListener([this](uint64_t keys)
     {
-        if (keys & HidNpadButton_A) 
+        if (keys & KEY_A) 
         {
             tsl::changeTo<SelectMenu>(6, this->_fanCurveTable, &this->_tableIsChanged);
             return true;
@@ -153,7 +153,7 @@ tsl::elm::Element* MainMenu::createUI()
 
     this->_p7Label->setClickListener([this](uint64_t keys)
     {
-        if (keys & HidNpadButton_A) 
+        if (keys & KEY_A) 
         {
             tsl::changeTo<SelectMenu>(7, this->_fanCurveTable, &this->_tableIsChanged);
             return true;
@@ -164,7 +164,7 @@ tsl::elm::Element* MainMenu::createUI()
 
     this->_p8Label->setClickListener([this](uint64_t keys)
     {
-        if (keys & HidNpadButton_A) 
+        if (keys & KEY_A) 
         {
             tsl::changeTo<SelectMenu>(8, this->_fanCurveTable, &this->_tableIsChanged);
             return true;
@@ -175,7 +175,7 @@ tsl::elm::Element* MainMenu::createUI()
 
     this->_p9Label->setClickListener([this](uint64_t keys)
     {
-        if (keys & HidNpadButton_A) 
+        if (keys & KEY_A) 
         {
             tsl::changeTo<SelectMenu>(9, this->_fanCurveTable, &this->_tableIsChanged);
             return true;

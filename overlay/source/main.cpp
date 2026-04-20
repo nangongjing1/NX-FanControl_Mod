@@ -1,6 +1,7 @@
 // main.cpp
 // 在包含 tesla.hpp 前定义 TESLA_INIT_IMPL
 #define TESLA_INIT_IMPL
+#include <exception_wrap.hpp>
 #include <tesla.hpp>
 #include "main_menu.hpp"
 

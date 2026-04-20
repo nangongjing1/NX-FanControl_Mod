@@ -126,6 +126,7 @@ Color batteryChargingColor;
 Color batteryLowColor;
 size_t widgetBackdropAlpha = 0;
 Color widgetBackdropColor;
+Color widgetBorderColor;
 
 Color overlayTextColor;
 Color ultOverlayTextColor;
@@ -275,6 +276,7 @@ constexpr ThemeDefault defaultThemeSettings[] = {
     {"warning_text_color",              "FF7777"},
     {"widget_backdrop_alpha",           "15"},
     {"widget_backdrop_color",           "000000"},
+    {"widget_border_color",             "555555"}
 };
 const size_t defaultThemeSettingsCount = sizeof(defaultThemeSettings) / sizeof(defaultThemeSettings[0]);
 
@@ -358,6 +360,7 @@ void initializeThemeVars() {
     batteryLowColor              = getColor("battery_low_color");
     widgetBackdropAlpha          = getAlpha("widget_backdrop_alpha");
     widgetBackdropColor          = getColor("widget_backdrop_color", widgetBackdropAlpha);
+    widgetBorderColor            = getColor("widget_border_color");
     overlayTextColor             = getColor("overlay_text_color");
     ultOverlayTextColor          = getColor("ult_overlay_text_color");
     packageTextColor             = getColor("package_text_color");
@@ -707,6 +710,7 @@ namespace impl {
         ult::hideSOCTemp            = getBool("hide_soc_temp",           true);
         ult::dynamicWidgetColors    = getBool("dynamic_widget_colors",   true);
         ult::hideWidgetBackdrop     = getBool("hide_widget_backdrop");
+        ult::hideWidgetBorder       = getBool("hide_widget_border");
         ult::centerWidgetAlignment  = getBool("center_widget_alignment", true);
         ult::extendedWidgetBackdrop = getBool("extended_widget_backdrop");
         ult::useDynamicLogo         = getBool("dynamic_logo",            true);
